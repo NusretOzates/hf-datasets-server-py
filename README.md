@@ -1,6 +1,6 @@
 # Datasets Server Python SDK
 
-This is the Python SDK for using the Datasets Server. It is not the official SDK, but it is a good start. 
+This is the Python SDK for using the [Huggingface Datasets Server](https://github.com/huggingface/datasets-server). It is not the official SDK, but it is a good start. 
 I will try to keep it up to date with the latest version of the Datasets Server.
 
 ## Installation
