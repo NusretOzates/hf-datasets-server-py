@@ -1,0 +1,7 @@
+.mypy_cache
+.pytest_cache
+build
+dist
+*.egg-info
+*.egg
+.idea
