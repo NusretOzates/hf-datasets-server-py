@@ -1,6 +1,9 @@
 name: Pusher
 run-name: ${{github.actor}}
-on: [push]
+on:
+    push:
+        branches:
+        - master
 jobs:
   release:
     runs-on: ubuntu-latest

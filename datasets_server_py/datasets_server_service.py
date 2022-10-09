@@ -1,5 +1,6 @@
 import os
-from typing import Optional, List
+from typing import List, Optional
+
 import requests
 from pydantic import BaseModel, Field
 
@@ -93,7 +94,7 @@ class DatasetsServerService:
         return response.json().get("valid", [])
 
     def is_valid_dataset(self, dataset_name: str) -> bool:
-        """ Checks whether a specific dataset loads without any error.
+        """Checks whether a specific dataset loads without any error.
 
         Args:
             dataset_name: The name of the dataset
@@ -151,7 +152,7 @@ class DatasetsServerService:
         return result
 
     def first_rows(
-            self, dataset_name: str, config: str, split: str
+        self, dataset_name: str, config: str, split: str
     ) -> DatasetFirstRows:
         """Get the columns and the first rows of a dataset split.
 
