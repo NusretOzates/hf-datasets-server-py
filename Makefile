@@ -1,4 +1,4 @@
-all: isort reformat test pypi
+all: isort reformat test push pypi
 
 isort:
 	isort .
