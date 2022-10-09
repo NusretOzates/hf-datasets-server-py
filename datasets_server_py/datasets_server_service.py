@@ -92,6 +92,32 @@ class DatasetsServerService:
 
         return response.json().get("valid", [])
 
+    def is_valid_dataset(self, dataset_name: str) -> bool:
+        """ Checks whether a specific dataset loads without any error.
+
+        Args:
+            dataset_name: The name of the dataset
+
+        Returns:
+            A list of DatasetSplit objects
+        """
+
+        headers = (
+            {"Authorization": f"Bearer {self.api_token}"} if self.api_token else {}
+        )
+
+        response = requests.get(
+            f"{self.BASE_API_URL}/is-valid",
+            params={"dataset": dataset_name},
+            headers=headers,
+        )
+
+        self._check_response(response)
+
+        result = response.json()["valid"]
+
+        return result
+
     def splits(self, dataset_name: str) -> List[DatasetSplit]:
         """Get the list of configurations and splits of a dataset.
 

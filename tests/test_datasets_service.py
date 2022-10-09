@@ -12,6 +12,12 @@ def test_valid_datasets(dataset_server_service):
     assert len(datasets) > 0
 
 
+def test_is_valid_dataset(dataset_server_service):
+    assert dataset_server_service.is_valid_dataset("glue")
+    with pytest.raises(Exception):
+        dataset_server_service.is_valid_dataset("invalid_dataset")
+
+
 def test_splits(dataset_server_service):
     splits = dataset_server_service.splits("glue")
     assert len(splits) > 0
