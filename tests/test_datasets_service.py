@@ -32,6 +32,7 @@ def test_first_rows(dataset_server_service):
     assert first_rows.split == "train"
     assert first_rows.config == "sst2"
 
+
 def test_parquet(dataset_server_service):
     parquet = dataset_server_service.parquet("glue")
     assert len(parquet) > 0

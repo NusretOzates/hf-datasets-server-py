@@ -70,7 +70,6 @@ class DatasetsServerService:
         self.api_token = api_token
 
     def _check_response(self, response: requests.Response):
-
         if response.status_code == 401:
             raise Exception("Invalid API token")
 
