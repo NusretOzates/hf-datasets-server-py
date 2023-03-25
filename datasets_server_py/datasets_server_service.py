@@ -43,6 +43,15 @@ class DatasetFirstRows(BaseModel):
     rows: List[DatasetRow] = Field(..., description="The list of rows")
 
 
+class ParquetFiles(BaseModel):
+    dataset: str = Field(..., description="The name of the dataset")
+    config: str = Field(..., description="The name of the configuration")
+    split: str = Field(..., description="The name of the split")
+    url: str = Field(..., description="The url of the parquet file")
+    filename: str = Field(..., description="The name of the parquet file")
+    size: int = Field(..., description="The size of the parquet file")
+
+
 class DatasetsServerService:
     BASE_API_URL = "https://datasets-server.huggingface.co"
 
@@ -190,5 +199,38 @@ class DatasetsServerService:
         self._check_response(response)
 
         result = DatasetFirstRows(**response.json())
+
+        return result
+
+    def parquet(self, dataset_name: str) -> List[ParquetFiles]:
+        """Get the list of parquet files of a dataset.
+        Datasets can be published in any format (CSV, JSONL, directories of images, etc.) on the Hub,
+        and people generally use the datasets library to access the data.
+
+        To make it even easier, the datasets-server automatically converts every dataset to the Parquet format
+        and publishes the parquet files on the Hub (in a specific branch: ref/convert/parquet).
+
+        The /parquet endpoint accepts the dataset name as its query parameter:
+
+        Args:
+            dataset_name: The name of the dataset
+
+        Returns:
+            A list of ParquetFiles objects
+        """
+
+        headers = (
+            {"Authorization": f"Bearer {self.api_token}"} if self.api_token else {}
+        )
+
+        response = requests.get(
+            f"{self.BASE_API_URL}/parquet",
+            params={"dataset": dataset_name},
+            headers=headers,
+        )
+
+        self._check_response(response)
+
+        result = [ParquetFiles(**item) for item in response.json()["parquet_files"]]
 
         return result
